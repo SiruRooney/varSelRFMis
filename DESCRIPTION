@@ -1,0 +1,14 @@
+Package: varSelRFMis
+Type: Package
+Title: Variable selection using Randomg Forests with Missing values
+Version: 0.1.1
+Author: Siru Wang
+Maintainer: Siru Wang <siru.wang@mrc-bsu.cam.ac.uk>
+Description: This package is to select important SNPs with non-ignorable missing values using random forests.
+License: GPL(>=2)
+Encoding: UTF-8
+LazyData: true
+Imports: doParallel,iterators, parallel, glmnet, ranger, varSelRF, randomForest, Matrix, psych
+RoxygenNote: 7.2.3
+Depends: 
+    R (>= 2.10)
