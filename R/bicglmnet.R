@@ -50,7 +50,7 @@ bicglmnet<-function(x,y,weight,indmisfun,bdiag_m){
   
   tre=glmnet(x=x,y=y,weights=weight,alpha=0,family="multinomial")
   lam=tre$lambda
-  ppro=glmnet::predict.glmnet(object=tre,newx=x,type="response") #dim(ppro)=nrow*(2/3)*length(lambda)
+  ppro=predict(object=tre,newx=x,type="response") #dim(ppro)=nrow*(2/3)*length(lambda)
   
   if(length(levels(y))==2){
     #binomial distribution
