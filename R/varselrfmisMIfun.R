@@ -74,16 +74,16 @@ rfmisinitfun<-function(predt,resps,misind,detna){
   for (i.initm in which(detna$zsnp==TRUE)){
     cat("i.initm",i.initm,"\n")
     
-    ridsnp=randomForest::randomForest(predt[(misind$zsnp[,i.initm]!="1"),-i.initm],as.factor(predt[,i.initm][misind$zsnp[,i.initm]!="1"]))
+    ridsnp=randomForest(predt[(misind$zsnp[,i.initm]!="1"),-i.initm],as.factor(predt[,i.initm][misind$zsnp[,i.initm]!="1"]))
     
-    cc=randomForest:::predict.randomForest(ridsnp,predt[(misind$zsnp[,i.initm]=="1"),-i.initm])
+    cc=predict(ridsnp,predt[(misind$zsnp[,i.initm]=="1"),-i.initm])
     predt[misind$zsnp[,i.initm]=="1",i.initm]=as.character(as.numeric(cc)-1)
     
   }
   
   if(detna$y==TRUE){
-    ridsnp=randomForest::randomForest(predt[(misind$indy!="1"),],resps[misind$indy!="1"])
-    cc=randomForest:::predict.randomForest(ridsnp,predt[(misind$indy=="1"),])
+    ridsnp=randomForest(predt[(misind$indy!="1"),],resps[misind$indy!="1"])
+    cc=predict(ridsnp,predt[(misind$indy=="1"),])
     resps[misind$indy=="1"]=cc}
  
   return(list(predimp=predt,predy=resps))    
@@ -290,10 +290,10 @@ imputerfmisfun<-function(predimp.w,predy.w,misindcom.tw,dectnalist,weight,itvs,o
       }else{
         if(itvs==1){
           cat("itvs",itvs,"\n")
-          ridgmis=glmnet::cv.glmnet(x=selectedvars.dum,y=selectedresp,weights=weight,alpha=0,nfolds=5,family="multinomial",type.measure="class",parallel=TRUE)
+          ridgmis=cv.glmnet(x=selectedvars.dum,y=selectedresp,weights=weight,alpha=0,nfolds=5,family="multinomial",type.measure="class",parallel=TRUE)
         }else{
           cat("itvs",itvs,"\n")
-          ridgmis=glmnet::cv.glmnet(x=selectedvars.dum,y=selectedresp,weights=weight,alpha=0,family="multinomial",type.measure="class",parallel=TRUE)
+          ridgmis=cv.glmnet(x=selectedvars.dum,y=selectedresp,weights=weight,alpha=0,family="multinomial",type.measure="class",parallel=TRUE)
         }
       }
 
@@ -479,6 +479,7 @@ mulimpmisfun<-function(submisrow,xycat,dectnalist,ncol.predyimp,xyindrow,ridgimp
 #' @param gensetf: A function for generating all possible conbinations of factor levels in an experiment.
 #' @param bicglmnet: A function which chooses an optimal tunning parameter using the model criterion BIC.
 #' @param bdiag_m: A function which generates a block diagonal matrix.
+#'@import doParallel
 #' @return a list containing the final selected result
 #' @export
 
