@@ -409,15 +409,15 @@ mulimpmisfun<-function(submisrow,xycat,dectnalist,ncol.predyimp,xyindrow,ridgimp
       
       if(optmethod=="bic"){
         if(NCOL(newxxdum)>1){
-          cond.part=glmnet::predict.glmnet(object=ridgimp[[indlist]][[iconmis3]]$fit,newx=newxxdum,s=ridgimp[[indlist]][[iconmis3]]$lam.min,type="response")
+          cond.part=predict(object=ridgimp[[indlist]][[iconmis3]]$fit,newx=newxxdum,s=ridgimp[[indlist]][[iconmis3]]$lam.min,type="response")
         }else{
-          cond.part=glmnet::predict.glmnet(object=ridgimp[[indlist]][[iconmis3]]$fit,newx=newxxdum,s=ridgimp[[indlist]][[iconmis3]]$lam.min,type="response")
+          cond.part=predict(object=ridgimp[[indlist]][[iconmis3]]$fit,newx=newxxdum,s=ridgimp[[indlist]][[iconmis3]]$lam.min,type="response")
         }
       }else{
         if(NCOL(newxxdum)>1){
-          cond.part=glmnet::predict.glmnet(object=ridgimp[[indlist]][[iconmis3]],newx=newxxdum,s="lambda.min",type="response")
+          cond.part=predict(object=ridgimp[[indlist]][[iconmis3]],newx=newxxdum,s="lambda.min",type="response")
         }else{
-          cond.part=glmnet::predict.glmnet(object=ridgimp[[indlist]][[iconmis3]],newx=newxxdum,s="lambda.min",type="response") 
+          cond.part=predict(object=ridgimp[[indlist]][[iconmis3]],newx=newxxdum,s="lambda.min",type="response") 
         }
       }
 
